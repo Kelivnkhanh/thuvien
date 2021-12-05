@@ -1,0 +1,193 @@
+A51 MACRO ASSEMBLER  BAI1                                                                 12/04/2021 19:32:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02
+OBJECT MODULE PLACED IN bai1.OBJ
+ASSEMBLER INVOKED BY: D:\soft\keilc\C51\BIN\A51.EXE bai1.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+0000 758901            2             MOV TMOD,#01H   
+0003                   3     MAIN:
+0003 7905              4             MOV R1,#5
+0005 120018            5     LM1:LCALL CHOPTAT
+0008 D9FB              6             DJNZ R1,LM1
+000A 12002B            7             LCALL SANGDAN
+000D 12004A            8             LCALL TATDAN
+0010 120066            9             LCALL DICH2LED
+0013 1200A9           10             LCALL DICH3LED
+                      11     
+0016 80EB             12             SJMP MAIN 
+                      13             
+                      14             
+                      15             
+0018                  16             CHOPTAT:
+0018 759000           17                     MOV P1,#00H
+001B 75B000           18                     MOV P3,#00H
+001E 120102           19                     LCALL DELAY
+0021 7590FF           20                     MOV P1,#0FFH
+0024 75B0FF           21                     MOV P3,#0FFH
+0027 120102           22                     LCALL DELAY     
+002A 22               23             RET 
+                      24     
+002B                  25             SANGDAN:
+002B 7590FF           26                     MOV P1,#0FFH
+002E 75B0FF           27                     MOV P3,#0FFH
+0031 74FF             28                     MOV A,#0FFH
+0033 C3               29             L11:CLR C
+0034 33               30                     RLC A
+0035 F590             31                     MOV P1,A 
+0037 120102           32                     LCALL DELAY
+003A 2097F6           33                     JB P1.7,L11
+003D 74FF             34                     MOV A,#0FFH
+003F C3               35             L12:CLR C 
+0040 33               36                     RLC A 
+0041 F5B0             37                     MOV P3,A
+0043 120102           38                     LCALL DELAY
+0046 20B7F6           39                     JB P3.7,L12             
+0049 22               40             RET
+004A                  41             TATDAN:
+004A 759000           42                     MOV P1,#00H
+004D 7400             43                     MOV A,#00H
+004F D3               44             L21:SETB C 
+0050 13               45                     RRC A
+0051 F5B0             46                     MOV P3,A
+0053 120102           47                     LCALL DELAY
+0056 30B0F6           48                     JNB P3.0,L21
+0059 7400             49                     MOV A,#00H
+005B D3               50             L22:SETB C
+005C 13               51                     RRC A
+005D F590             52                     MOV P1,A
+005F 120102           53                     LCALL DELAY 
+0062 3090F6           54                     JNB P1.0,L22    
+0065 22               55             RET 
+0066                  56             DICH2LED:
+0066 7590FF           57                     MOV P1,#0FFH
+0069 75B0FF           58                     MOV P3,#0FFH
+A51 MACRO ASSEMBLER  BAI1                                                                 12/04/2021 19:32:26 PAGE     2
+
+006C 120102           59                     LCALL DELAY
+                      60             
+006F 7590FE           61                     MOV P1,#0FEH
+0072 120102           62                     LCALL DELAY
+0075 74FC             63                     MOV A,#0FCH
+0077 F590             64                     MOV P1,A
+0079 120102           65                     LCALL DELAY
+                      66                      
+007C D3               67             L31:SETB C
+007D 33               68                     RLC A 
+007E F590             69                     MOV P1,A
+0080 120102           70                     LCALL DELAY
+0083 2097F6           71                     JB P1.7,L31
+                      72             
+0086 75907F           73                     MOV P1,#7FH
+0089 75B0FE           74                     MOV P3,#0FEH
+008C 120102           75                     LCALL DELAY
+008F 7590FF           76                     MOV P1,#0FFH
+0092 74FC             77                     MOV A,#0FCH
+0094 F5B0             78                     MOV P3,A
+0096 120102           79                     LCALL DELAY
+0099 D3               80             L32:SETB C 
+009A 33               81                     RLC A
+009B F5B0             82                     MOV P3,A
+009D 120102           83                     LCALL DELAY
+00A0 40F7             84                     JC L32
+00A2 75B0FF           85                     MOV P3,#0FFH
+00A5 120102           86                     LCALL DELAY
+00A8 22               87             RET 
+00A9                  88             DICH3LED:
+00A9 75B07F           89                     MOV P3,#7FH
+00AC 7590FF           90                     MOV P1,#0FFH
+00AF 120102           91                     LCALL DELAY
+00B2 75B03F           92                     MOV P3,#3FH
+00B5 120102           93                     LCALL DELAY
+00B8 741F             94                     MOV A,#1FH
+00BA F5B0             95                     MOV P3,A
+00BC 120102           96                     LCALL DELAY
+00BF D3               97             L41:SETB C 
+00C0 13               98                     RRC A
+00C1 F5B0             99                     MOV P3,A 
+00C3 120102          100                     LCALL DELAY
+00C6 20B0F6          101                     JB P3.0,L41
+                     102     
+00C9 75907F          103                     MOV P1,#7FH
+00CC 75B0FC          104                     MOV P3,#0FCH
+00CF 120102          105                     LCALL DELAY
+00D2 75903F          106                     MOV P1,#3FH
+00D5 75B0FE          107                     MOV P3,#0FEH
+00D8 120102          108                     LCALL DELAY
+00DB 741F            109                     MOV A,#1FH 
+00DD F590            110                     MOV P1,A
+00DF 75B0FF          111                     MOV P3,#0FFH
+00E2 120102          112                     LCALL DELAY
+00E5 D3              113             L42:SETB C
+00E6 13              114                     RRC A
+00E7 F590            115                     MOV P1,A
+00E9 120102          116                     LCALL DELAY
+00EC 2090F6          117                     JB P1.0,L42
+                     118     
+00EF 7590FC          119                     MOV P1,#0FCH
+00F2 120102          120                     LCALL DELAY
+00F5 7590FE          121                     MOV P1,#0FEH
+00F8 120102          122                     LCALL DELAY
+00FB 7590FF          123                     MOV P1,#0FFH
+00FE 120102          124                     LCALL DELAY
+A51 MACRO ASSEMBLER  BAI1                                                                 12/04/2021 19:32:26 PAGE     3
+
+0101 22              125             RET 
+                     126     
+0102                 127             DELAY:
+0102 C000            128                     PUSH 00H
+0104 7805            129                     MOV R0,#5
+0106 758C3C          130             LD:     MOV TH0,#3CH
+0109 758AAF          131                     MOV TL0,#0AFH
+010C D28C            132                     SETB TR0
+010E 308DFD          133                     JNB TF0,$
+0111 C28C            134                     CLR TR0
+0113 C28D            135                     CLR TF0
+0115 D8EF            136                     DJNZ R0,LD
+0117 D000            137                     POP 00H
+0119 22              138             RET 
+                     139     END
+                             
+                             
+                                     
+A51 MACRO ASSEMBLER  BAI1                                                                 12/04/2021 19:32:26 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CHOPTAT. . . . . .  C ADDR   0018H   A   
+DELAY. . . . . . .  C ADDR   0102H   A   
+DICH2LED . . . . .  C ADDR   0066H   A   
+DICH3LED . . . . .  C ADDR   00A9H   A   
+L11. . . . . . . .  C ADDR   0033H   A   
+L12. . . . . . . .  C ADDR   003FH   A   
+L21. . . . . . . .  C ADDR   004FH   A   
+L22. . . . . . . .  C ADDR   005BH   A   
+L31. . . . . . . .  C ADDR   007CH   A   
+L32. . . . . . . .  C ADDR   0099H   A   
+L41. . . . . . . .  C ADDR   00BFH   A   
+L42. . . . . . . .  C ADDR   00E5H   A   
+LD . . . . . . . .  C ADDR   0106H   A   
+LM1. . . . . . . .  C ADDR   0005H   A   
+MAIN . . . . . . .  C ADDR   0003H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+SANGDAN. . . . . .  C ADDR   002BH   A   
+TATDAN . . . . . .  C ADDR   004AH   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
